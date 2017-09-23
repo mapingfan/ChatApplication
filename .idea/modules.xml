@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Chat0.1/Chat0.1.iml" filepath="$PROJECT_DIR$/Chat0.1/Chat0.1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Chat0.2/Chat0.2.iml" filepath="$PROJECT_DIR$/Chat0.2/Chat0.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Chat0.3/Chat0.3.iml" filepath="$PROJECT_DIR$/Chat0.3/Chat0.3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Chat0.4/Chat0.4.iml" filepath="$PROJECT_DIR$/Chat0.4/Chat0.4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ChatApplication.iml" filepath="$PROJECT_DIR$/ChatApplication.iml" />
+    </modules>
+  </component>
+</project>
