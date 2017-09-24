@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
@@ -15,7 +16,7 @@ public class ChatClient {
     String content = "";
     Socket clientSocket;
     DataOutputStream dataOutputStream;
-
+    DataInputStream dataInputStream;
 
     public ChatClient() {
         frame = new Frame("ChatApp");
@@ -24,6 +25,7 @@ public class ChatClient {
         try {
             clientSocket = new Socket("127.0.0.1",9999);
             dataOutputStream = new DataOutputStream(clientSocket.getOutputStream());
+            dataInputStream = new DataInputStream(clientSocket.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -44,7 +46,7 @@ public class ChatClient {
             public void actionPerformed(ActionEvent e) {
                 content += textField.getText().trim()+"\r\n";
                 sendMessage(textField.getText().trim());
-                textArea.setText(content);
+                //textArea.setText(content);
                 textField.setText("");
 
 
@@ -56,6 +58,9 @@ public class ChatClient {
     public void launchFrame() {
         this.setClient();
         this.frame.setVisible(true);
+        //this.receiveMessage();
+        Thread thread = new Thread(new ReceiveThread());
+        thread.start();
     }
 
     public void sendMessage(String string) {
@@ -67,13 +72,29 @@ public class ChatClient {
         }
     }
 
+    public void receiveMessage() {
+        String tempLine;
+        String str = "";
+        try {
+            while ((tempLine=dataInputStream.readUTF())!=null) {
+                str += (tempLine+"\r\n");
+                textArea.setText(str);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    class ReceiveThread implements Runnable {
+        @Override
+        public void run() {
+            receiveMessage();
+        }
+    }
+
     public static void main(String[] args) {
         ChatClient myChatClient = new ChatClient();
         myChatClient.launchFrame();
+
     }
 }
-
-
-/*
-客户端：界面，组件，网络连接；
- */
